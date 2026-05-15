@@ -1,0 +1,9 @@
+Place these files in this folder:
+
+  profile.jpg    ← Your profile photo (square crop, min 400×400px)
+  poster1.pdf    ← Poster: Structured Data Integration with GRM/SQLP
+  poster2.pdf    ← Poster: Reliable Reference Mechanisms for Knowledge Bases
+  poster3.pdf    ← Poster: Parallel Graph Pattern Matching with Golang
+  poster4.pdf    ← Poster: Data Cleaning in Ontological Multidimensional Models
+
+Then deploy the entire enamul-website/ folder to GitHub Pages (see README.md).

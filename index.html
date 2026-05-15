@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enamul Haque (Moni) — PhD Candidate & Researcher, University of Waterloo</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Enamul Haque (Moni) — PhD Candidate, Lecturer & Researcher at the David R. Cheriton School of Computer Science, University of Waterloo. Research in AI, Knowledge Representation, Databases, and Data Science." />
+  <meta name="keywords" content="Enamul Haque, Moni, University of Waterloo, PhD, Data Systems, AI, Knowledge Representation, Databases, Data Science, Computer Science" />
+  <meta name="author" content="Enamul Haque (Moni)" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Enamul Haque (Moni) — Researcher & PhD Candidate" />
+  <meta property="og:description" content="PhD Candidate at the University of Waterloo. Research in AI, Knowledge Representation, and Databases." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ehmoni.github.io" />
+  <meta property="og:image" content="assets/img/profile.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Enamul Haque (Moni)" />
+  <meta name="twitter:description" content="PhD Candidate & Researcher at University of Waterloo" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ─── DESIGN TOKENS ──────────────────────────────────────────────────────── */
+    :root {
+      --bg-base:     #04070f;
+      --bg-layer:    #080e1d;
+      --bg-card:     rgba(10, 18, 40, 0.72);
+      --bg-glass:    rgba(14, 25, 55, 0.55);
+      --border:      rgba(0, 210, 255, 0.12);
+      --border-glow: rgba(0, 210, 255, 0.35);
+
+      --cyan:        #00d4ff;
+      --cyan-soft:   rgba(0, 212, 255, 0.15);
+      --cyan-dim:    rgba(0, 212, 255, 0.06);
+      --gold:        #f0c060;
+      --gold-soft:   rgba(240, 192, 96, 0.15);
+      --lavender:    #9d8eff;
+      --mint:        #00e5c7;
+
+      --text-1:    #e8eef8;
+      --text-2:    #9aacc8;
+      --text-3:    #566880;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Outfit', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+      --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.12);
+
+      --transition: 0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── RESET & BASE ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-base);
+      color: var(--text-1);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--cyan-soft); color: var(--cyan); }
+    a { color: var(--cyan); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--gold); }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ─── SCROLLBAR ──────────────────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 2px; }
+
+    /* ─── CANVAS BACKGROUND ──────────────────────────────────────────────────── */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────────────────────── */
+    .wrapper { position: relative; z-index: 1; }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(4,7,15,0.75);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-1);
+      letter-spacing: 0.02em;
+    }
+    .nav-brand span { color: var(--cyan); }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: all var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--cyan);
+      background: var(--cyan-dim);
+    }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text-2);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 2rem 80px;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--cyan);
+    }
+    h1.hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text-1);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-nickname {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: 1rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .hero-title strong { color: var(--gold); font-weight: 500; }
+    .hero-affil {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-3);
+      margin-bottom: 0.5rem;
+    }
+    .hero-affil i { color: var(--cyan); width: 16px; }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.75rem 0;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all var(--transition);
+    }
+    .tag:hover {
+      background: var(--cyan-soft);
+      border-color: var(--cyan);
+      transform: translateY(-1px);
+    }
+    .tag.gold { color: var(--gold); background: var(--gold-soft); border-color: rgba(240,192,96,0.2); }
+    .tag.lavender { color: var(--lavender); background: rgba(157,142,255,0.1); border-color: rgba(157,142,255,0.2); }
+    .tag.mint { color: var(--mint); background: rgba(0,229,199,0.08); border-color: rgba(0,229,199,0.2); }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: #03080f;
+    }
+    .btn-primary:hover {
+      background: #25dcff;
+      color: #03080f;
+      box-shadow: 0 0 24px rgba(0,212,255,0.4);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-1);
+      border-color: var(--border-glow);
+    }
+    .btn-outline:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+      transform: translateY(-2px);
+    }
+
+    .hero-social {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-3);
+      font-size: 0.9rem;
+      transition: all var(--transition);
+      background: var(--bg-glass);
+      backdrop-filter: blur(8px);
+    }
+    .social-link:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* HERO PROFILE IMAGE */
+    .hero-photo-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-photo-ring {
+      position: relative;
+      width: 280px; height: 280px;
+    }
+    .hero-photo-ring::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--cyan) 0deg,
+        var(--lavender) 120deg,
+        var(--gold) 240deg,
+        var(--cyan) 360deg
+      );
+      animation: spin 8s linear infinite;
+    }
+    .hero-photo-ring::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg-base);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-photo {
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      z-index: 1;
+      overflow: hidden;
+      background: var(--bg-layer);
+    }
+    .hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #080e1d 0%, #0d1a35 100%);
+      border-radius: 50%;
+    }
+    .hero-photo-placeholder i {
+      font-size: 5rem;
+      color: var(--cyan);
+      opacity: 0.4;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 320px; height: 320px;
+      background: radial-gradient(ellipse, rgba(0,212,255,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
+    }
+    .hero-stat-strip {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+    .hero-stat .lbl {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── SECTION COMMON ─────────────────────────────────────────────────────── */
+    section {
+      padding: 90px 2rem;
+    }
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border-glow), transparent);
+      max-width: 120px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text-1);
+      line-height: 1.15;
+    }
+    .section-subtitle {
+      color: var(--text-2);
+      margin-top: 0.75rem;
+      max-width: 540px;
+      font-size: 0.95rem;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────────────────────────────── */
+    #about { background: var(--bg-layer); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-2);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--gold); font-weight: 500; }
+    .about-text blockquote {
+      border-left: 2px solid var(--cyan);
+      padding-left: 1.25rem;
+      margin: 1.5rem 0;
+      color: var(--text-1);
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+    .edu-timeline { position: relative; }
+    .edu-timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--cyan), var(--lavender), transparent);
+    }
+    .edu-item {
+      padding-left: 2.75rem;
+      padding-bottom: 2rem;
+      position: relative;
+    }
+    .edu-item::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 6px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--bg-base);
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 10px rgba(0,212,255,0.4);
+    }
+    .edu-degree {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 0.2rem;
+    }
+    .edu-school {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      margin-bottom: 0.15rem;
+    }
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-3);
+    }
+    .edu-detail {
+      font-size: 0.82rem;
+      color: var(--text-2);
+      margin-top: 0.4rem;
+    }
+
+    /* ─── RESEARCH AREAS ─────────────────────────────────────────────────────── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .research-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem 1.5rem;
+      backdrop-filter: blur(12px);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .research-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--cyan-dim), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .research-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+    .research-card:hover::after { opacity: 1; }
+    .research-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .research-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 0.5rem;
+    }
+    .research-desc {
+      font-size: 0.82rem;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ─── CARD UNIVERSAL ─────────────────────────────────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(14px);
+      transition: all var(--transition);
+      overflow: hidden;
+    }
+    .card:hover {
+      border-color: var(--border-glow);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-3px);
+    }
+
+    /* ─── NEWS ───────────────────────────────────────────────────────────────── */
+    #news { background: var(--bg-layer); }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .news-card {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .news-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--cyan);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .news-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-1);
+      line-height: 1.5;
+      flex: 1;
+    }
+    .news-source {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-3);
+    }
+    .news-read {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap var(--transition);
+    }
+    .news-card:hover .news-read { gap: 0.6rem; }
+
+    /* ─── PUBLICATIONS ───────────────────────────────────────────────────────── */
+    .pub-filter {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: var(--cyan-dim);
+    }
+    .pub-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .pub-card {
+      padding: 1.5rem 1.75rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+    }
+    .pub-type {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+    }
+    .pub-type.conference { color: var(--cyan); border-color: rgba(0,212,255,0.25); background: var(--cyan-dim); }
+    .pub-type.workshop { color: var(--lavender); border-color: rgba(157,142,255,0.25); background: rgba(157,142,255,0.08); }
+    .pub-type.journal { color: var(--gold); border-color: rgba(240,192,96,0.25); background: var(--gold-soft); }
+    .pub-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-1);
+      line-height: 1.45;
+      margin-bottom: 0.4rem;
+    }
+    .pub-authors {
+      font-size: 0.82rem;
+      color: var(--text-2);
+      margin-bottom: 0.25rem;
+    }
+    .pub-authors strong { color: var(--cyan); font-weight: 500; }
+    .pub-venue {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+    .pub-venue em { color: var(--gold); font-style: normal; font-weight: 500; }
+    .pub-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-end;
+    }
+    .pub-link {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+    .pub-link:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+    }
+    .scholar-cta {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border: 1px dashed var(--border-glow);
+      border-radius: var(--radius-md);
+      text-align: center;
+      color: var(--text-2);
+      font-size: 0.88rem;
+    }
+    .scholar-cta a { color: var(--cyan); font-weight: 500; }
+
+    /* ─── POSTERS ────────────────────────────────────────────────────────────── */
+    #posters { background: var(--bg-layer); }
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .poster-card {
+      cursor: pointer;
+      border-radius: var(--radius-md);
+    }
+    .poster-thumb {
+      aspect-ratio: 3/4;
+      background: var(--bg-layer);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .poster-thumb-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    .poster-num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      opacity: 0.08;
+    }
+    .poster-icon { font-size: 3rem; opacity: 0.5; }
+    .poster-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,212,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .poster-overlay i { font-size: 2rem; color: var(--cyan); }
+    .poster-card:hover .poster-overlay { opacity: 1; }
+    .poster-card:hover { border-color: var(--cyan); }
+    .poster-info {
+      padding: 1rem 1.25rem;
+    }
+    .poster-num-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+    .poster-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-1);
+      line-height: 1.45;
+    }
+    /* Poster gradient backgrounds */
+    .poster-bg-1 { background: linear-gradient(135deg, #040d1c, #0a1f3a); }
+    .poster-bg-2 { background: linear-gradient(135deg, #0c0818, #1a0d30); }
+    .poster-bg-3 { background: linear-gradient(135deg, #040c14, #072a20); }
+    .poster-bg-4 { background: linear-gradient(135deg, #120808, #2a1205); }
+
+    /* ─── MODAL ──────────────────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4,7,15,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--bg-layer);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 0 60px rgba(0,212,255,0.1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all var(--transition);
+    }
+    .modal-close:hover { color: var(--cyan); border-color: var(--cyan); }
+    .modal-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 1rem;
+      line-height: 1.35;
+    }
+    .modal-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.75; }
+    .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+
+    /* ─── PRESENTATIONS ──────────────────────────────────────────────────────── */
+    .talks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .talk-card { padding: 1.5rem; }
+    .talk-type {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--lavender);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+    .talk-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-1);
+      line-height: 1.45;
+      margin-bottom: 0.5rem;
+    }
+    .talk-event {
+      font-size: 0.82rem;
+      color: var(--text-2);
+      margin-bottom: 0.25rem;
+    }
+    .talk-year {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-3);
+    }
+    .talk-links { margin-top: 1rem; display: flex; gap: 0.5rem; }
+
+    /* ─── TEACHING ───────────────────────────────────────────────────────────── */
+    #teaching { background: var(--bg-layer); }
+    .teaching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .course-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .course-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+    .course-item:hover {
+      border-color: var(--border-glow);
+      transform: translateX(4px);
+    }
+    .course-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+    .course-name {
+      font-size: 0.88rem;
+      color: var(--text-1);
+      font-weight: 500;
+    }
+    .course-role {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      font-family: var(--font-mono);
+    }
+    .teaching-philosophy {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .teaching-philosophy::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem; left: 1rem;
+      font-family: var(--font-display);
+      font-size: 8rem;
+      color: var(--cyan);
+      opacity: 0.05;
+      line-height: 1;
+    }
+    .philosophy-text {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text-1);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+    .contact-item:hover { border-color: var(--border-glow); }
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--cyan-dim);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .contact-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.25rem;
+    }
+    .contact-item-val {
+      font-size: 0.88rem;
+      color: var(--text-1);
+    }
+    .social-links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+    .social-card {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+    }
+    .social-card i { font-size: 1.25rem; }
+    .social-card span {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .social-card:hover { transform: translateY(-3px); }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--bg-layer);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+    .footer-logo span { color: var(--cyan); }
+    .footer-text {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── SCROLL ANIMATIONS ──────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── DARK/LIGHT TOGGLE ──────────────────────────────────────────────────── */
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: 0.85rem;
+    }
+    .theme-toggle:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ─── LIGHT MODE ─────────────────────────────────────────────────────────── */
+    body.light {
+      --bg-base:     #f0f4fc;
+      --bg-layer:    #e6ecf8;
+      --bg-card:     rgba(255,255,255,0.75);
+      --bg-glass:    rgba(240,244,252,0.8);
+      --border:      rgba(0, 120, 200, 0.15);
+      --border-glow: rgba(0, 120, 200, 0.35);
+      --cyan:        #0078c8;
+      --cyan-soft:   rgba(0,120,200,0.15);
+      --cyan-dim:    rgba(0,120,200,0.07);
+      --gold:        #b07800;
+      --gold-soft:   rgba(176,120,0,0.1);
+      --lavender:    #5a4fcc;
+      --text-1:    #0d1426;
+      --text-2:    #3a4d6e;
+      --text-3:    #7a90b0;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo-ring { width: 200px; height: 200px; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .teaching-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .pub-card { grid-template-columns: 1fr; }
+      .pub-links { flex-direction: row; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: rgba(4,7,15,0.97);
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(20px);
+      }
+      .nav-toggle { display: flex; }
+      section { padding: 60px 1.25rem; }
+      .hero-stat-strip { gap: 1.5rem; }
+      .social-links-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Particle Canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<div class="wrapper">
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-brand">Enamul Haque <span>(Moni)</span></div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#posters">Posters</a></li>
+      <li><a href="#presentations">Talks</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex; gap:0.5rem; align-items:center;">
+      <button class="theme-toggle" id="theme-toggle" title="Toggle theme"><i class="fa fa-sun"></i></button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-label">University of Waterloo · Data Systems Group</div>
+        <h1 class="hero-name">Enamul Haque</h1>
+        <div class="hero-nickname">Moni</div>
+
+        <p class="hero-title">
+          <strong>PhD Candidate & Lecturer</strong> · David R. Cheriton School of Computer Science<br>
+          Supervised by Dr. Grant Weddell & Dr. David Toman
+        </p>
+
+        <div class="hero-affil">
+          <i class="fa fa-map-marker-alt"></i>
+          DC Building (Data Systems Lab), Waterloo, ON, Canada
+        </div>
+        <div class="hero-affil">
+          <i class="fa fa-envelope"></i>
+          enamul.haque@uwaterloo.ca
+        </div>
+
+        <div class="hero-tags">
+          <span class="tag">Knowledge Representation</span>
+          <span class="tag gold">Databases</span>
+          <span class="tag lavender">Artificial Intelligence</span>
+          <span class="tag mint">Data Science</span>
+          <span class="tag">Data Integration</span>
+          <span class="tag gold">Machine Learning</span>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="btn btn-primary">
+            <i class="fa-brands fa-google-scholar"></i> Google Scholar
+          </a>
+          <a href="mailto:enamul.haque@uwaterloo.ca" class="btn btn-outline">
+            <i class="fa fa-envelope"></i> Get In Touch
+          </a>
+          <a href="https://github.com/ehmoni" target="_blank" class="btn btn-outline">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+
+        <div class="hero-social">
+          <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="social-link" title="Google Scholar"><i class="fa-brands fa-google-scholar"></i></a>
+          <a href="https://github.com/ehmoni" target="_blank" class="social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.youtube.com/channel/UCqUy_KB93-VzJBUFtKfqqhw" target="_blank" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.slideshare.net/enamoni" target="_blank" class="social-link" title="SlideShare"><i class="fa-brands fa-slideshare"></i></a>
+          <a href="mailto:enamul.haque@uwaterloo.ca" class="social-link" title="Email"><i class="fa fa-envelope"></i></a>
+          <a href="https://500px.com/p/enam?view=photos" target="_blank" class="social-link" title="Photography"><i class="fa fa-camera"></i></a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <div class="hero-glow"></div>
+        <div class="hero-photo-ring">
+          <div class="hero-photo">
+            <img src="assets/img/profile.jpg" alt="Enamul Haque (Moni)"
+                 onerror="this.style.display='none'; this.parentElement.querySelector('.hero-photo-placeholder').style.display='flex';">
+            <div class="hero-photo-placeholder" style="display:none;">
+              <i class="fa fa-user-graduate"></i>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stat-strip">
+          <div class="hero-stat">
+            <div class="num" data-count="4">0</div>
+            <div class="lbl">Degrees</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-count="10">0</div>
+            <div class="lbl">Years Industry</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-count="4">0</div>
+            <div class="lbl">Research Areas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ──────────────────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">About Me</div>
+        <h2 class="section-title">Bridging Industry<br>& Academic Research</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <blockquote>
+            "A Journey of a thousand miles begins with a single step." — Laozi
+          </blockquote>
+          <p>
+            I am a passionate computer science researcher who started as a technology enthusiast undergraduate and went through a long journey with multiple track records in different fields — both in industry and academia — and still believe <strong>"I have miles to go, before I sleep."</strong>
+          </p>
+          <p>
+            Along this journey, I have acquired diverse experiences ranging from <strong>Computing & IT</strong> (Software Development, Networking) to <strong>Telecommunications</strong> (Network Operations, Quality, Automation) and then <strong>Business</strong> (Process, Six Sigma, Management), and finally <strong>Data Science</strong> (Databases, AI, and Machine Learning).
+          </p>
+          <p>
+            I like to take new challenges and embark on new ventures so I can acquire new knowledge and, by integrating them with previous insights, deploy them for better results. In the organizations I've worked with, I always encouraged innovative ideas and inspired problem-solving effectively — increasing my confidence to learn, teach, and build a stronger next generation.
+          </p>
+          <p>
+            At the University of Waterloo (<strong>Data Systems Group</strong>), my research falls broadly under AI — specifically at the cross-section of <strong>Knowledge Representation and Databases</strong>. I am supervised by Dr. Grant Weddell and Dr. David Toman.
+          </p>
+        </div>
+
+        <div class="edu-timeline reveal reveal-delay-2">
+          <h3 style="font-family:var(--font-display); font-size:1.25rem; margin-bottom:1.75rem; color:var(--text-1);">Education</h3>
+
+          <div class="edu-item">
+            <div class="edu-degree">PhD Candidate, Computer Science</div>
+            <div class="edu-school">University of Waterloo</div>
+            <div class="edu-year">Current · Waterloo, ON, Canada</div>
+            <div class="edu-detail">Data Systems Group · Supervisors: Dr. Grant Weddell & Dr. David Toman<br>Focus: Knowledge Representation & Databases</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-degree">MSc, Computer Science</div>
+            <div class="edu-school">McMaster University</div>
+            <div class="edu-year">Hamilton, ON, Canada</div>
+            <div class="edu-detail">Data Science Lab · Supervisor: Dr. Fei Chiang<br>Research: Data Cleaning from an Ontological Perspective</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-degree">MBA, Management & Marketing</div>
+            <div class="edu-school">North South University</div>
+            <div class="edu-year">Dhaka, Bangladesh</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-degree">BSc, Computer Science & Engineering</div>
+            <div class="edu-school">Chittagong University of Engineering and Technology (CUET)</div>
+            <div class="edu-year">Chittagong, Bangladesh</div>
+            <div class="edu-detail">Undergraduate Research: Machine Learning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESEARCH AREAS ─────────────────────────────────────────────────────── -->
+  <section id="research">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Research Focus</div>
+        <h2 class="section-title">Areas of Inquiry</h2>
+        <p class="section-subtitle">My research sits at the intersection of AI and data management, exploring formal foundations with practical impact.</p>
+      </div>
+      <div class="research-grid">
+        <div class="research-card reveal">
+          <span class="research-icon">🧠</span>
+          <div class="research-name">Knowledge Representation</div>
+          <div class="research-desc">Formal languages for representing and reasoning about knowledge, including description logics, ontologies, and knowledge bases with dynamic data updates.</div>
+        </div>
+        <div class="research-card reveal reveal-delay-1">
+          <span class="research-icon">🗄️</span>
+          <div class="research-name">Databases & Data Systems</div>
+          <div class="research-desc">Query languages, graph-based data models (GRM/SQLP), structured data integration, and heterogeneous data source management with identity resolution.</div>
+        </div>
+        <div class="research-card reveal reveal-delay-2">
+          <span class="research-icon">🤖</span>
+          <div class="research-name">Artificial Intelligence</div>
+          <div class="research-desc">Cross-disciplinary AI research spanning symbolic AI, reasoning systems, and applied machine learning for real-world societal problems.</div>
+        </div>
+        <div class="research-card reveal reveal-delay-3">
+          <span class="research-icon">🔬</span>
+          <div class="research-name">Data Science & Cleaning</div>
+          <div class="research-desc">Ontological data cleaning, multidimensional data quality frameworks, Answer Set Programming for optimal repairs, and machine learning for data analysis.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWS ──────────────────────────────────────────────────────────────── -->
+  <section id="news">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">News & Media</div>
+        <h2 class="section-title">In The Press</h2>
+      </div>
+      <div class="news-grid">
+
+        <a href="https://uwaterloo.ca/scholar/e6haque/news" target="_blank" class="card news-card reveal" style="text-decoration:none;">
+          <div class="news-date">July 3, 2025</div>
+          <div class="news-title">How Enamul Haque finds the creativity in data systems</div>
+          <div class="news-source">University of Waterloo</div>
+          <div class="news-read"><i class="fa fa-arrow-right"></i> Read Article</div>
+        </a>
+
+        <a href="https://www.therecord.com" target="_blank" class="card news-card reveal reveal-delay-1" style="text-decoration:none;">
+          <div class="news-date">May 18, 2022</div>
+          <div class="news-title">Remote classes affected students and teachers differently worldwide: Waterloo study</div>
+          <div class="news-source">The Record (Local Newspaper)</div>
+          <div class="news-read"><i class="fa fa-arrow-right"></i> Read Article</div>
+        </a>
+
+        <a href="https://uwaterloo.ca/scholar/e6haque/news" target="_blank" class="card news-card reveal reveal-delay-2" style="text-decoration:none;">
+          <div class="news-date">May 17, 2022</div>
+          <div class="news-title">Data science analysis: online classes affected students and teachers differently worldwide</div>
+          <div class="news-source">University of Waterloo</div>
+          <div class="news-read"><i class="fa fa-arrow-right"></i> Read Article</div>
+        </a>
+
+        <a href="https://uwaterloo.ca/scholar/e6haque/news" target="_blank" class="card news-card reveal reveal-delay-3" style="text-decoration:none;">
+          <div class="news-date">April 28, 2022</div>
+          <div class="news-title">PhD student Enamul Haque member of research team using machine learning to help address stigma of substance abuse in developing nations</div>
+          <div class="news-source">University of Waterloo</div>
+          <div class="news-read"><i class="fa fa-arrow-right"></i> Read Article</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ────────────────────────────────────────────────────────── -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Scholarly Work</div>
+        <h2 class="section-title">Publications</h2>
+        <p class="section-subtitle">Research publications in data systems, knowledge representation, and AI. Filter by topic or type.</p>
+      </div>
+
+      <div class="pub-filter reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="kr">Knowledge Rep.</button>
+        <button class="filter-btn" data-filter="data">Data Systems</button>
+        <button class="filter-btn" data-filter="ml">ML / AI</button>
+      </div>
+
+      <div class="pub-list" id="pub-list">
+
+        <div class="card pub-card reveal" data-tags="kr data">
+          <div>
+            <span class="pub-type conference">Conference</span>
+            <div class="pub-title">Extending Description Logic Knowledge Bases with Reliable Reference Mechanisms</div>
+            <div class="pub-authors"><strong>Enamul Haque</strong>, Grant Weddell, David Toman</div>
+            <div class="pub-venue">International Workshop on Description Logics · <em>DL 2023</em></div>
+          </div>
+          <div class="pub-links">
+            <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="pub-link"><i class="fa fa-external-link-alt"></i> Scholar</a>
+          </div>
+        </div>
+
+        <div class="card pub-card reveal" data-tags="data kr">
+          <div>
+            <span class="pub-type conference">Conference</span>
+            <div class="pub-title">Structured Data Integration with Graph Relational Model and SQLP</div>
+            <div class="pub-authors"><strong>Enamul Haque</strong>, Grant Weddell, David Toman</div>
+            <div class="pub-venue">Data Systems Research · University of Waterloo · <em>2022–2024</em></div>
+          </div>
+          <div class="pub-links">
+            <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="pub-link"><i class="fa fa-external-link-alt"></i> Scholar</a>
+          </div>
+        </div>
+
+        <div class="card pub-card reveal" data-tags="data">
+          <div>
+            <span class="pub-type workshop">Workshop</span>
+            <div class="pub-title">Data Cleaning in Ontological Multidimensional Models via Answer Set Programming</div>
+            <div class="pub-authors"><strong>Enamul Haque</strong>, Fei Chiang</div>
+            <div class="pub-venue">McMaster University · Data Science Lab · <em>MSc Research</em></div>
+          </div>
+          <div class="pub-links">
+            <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="pub-link"><i class="fa fa-external-link-alt"></i> Scholar</a>
+          </div>
+        </div>
+
+        <div class="card pub-card reveal" data-tags="ml">
+          <div>
+            <span class="pub-type conference">Conference</span>
+            <div class="pub-title">Machine Learning Approaches to Address Stigma of Substance Abuse in Developing Nations</div>
+            <div class="pub-authors">Research Team including <strong>Enamul Haque</strong></div>
+            <div class="pub-venue">University of Waterloo · <em>2022</em></div>
+          </div>
+          <div class="pub-links">
+            <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="pub-link"><i class="fa fa-external-link-alt"></i> Scholar</a>
+          </div>
+        </div>
+
+        <div class="card pub-card reveal" data-tags="ml data">
+          <div>
+            <span class="pub-type journal">Analysis</span>
+            <div class="pub-title">Data Science Analysis: Online Classes Affected Students and Teachers Differently Worldwide</div>
+            <div class="pub-authors">Research Team including <strong>Enamul Haque</strong></div>
+            <div class="pub-venue">University of Waterloo · <em>May 2022</em></div>
+          </div>
+          <div class="pub-links">
+            <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="pub-link"><i class="fa fa-external-link-alt"></i> Scholar</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="scholar-cta reveal">
+        For the complete and up-to-date list of publications, visit my
+        <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank">
+          <i class="fa-brands fa-google-scholar"></i> Google Scholar profile
+        </a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── POSTERS ─────────────────────────────────────────────────────────────── -->
+  <section id="posters">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Visual Research</div>
+        <h2 class="section-title">Research Posters</h2>
+        <p class="section-subtitle">Conference and symposium posters summarizing key research contributions. Click to learn more.</p>
+      </div>
+      <div class="poster-grid">
+
+        <div class="card poster-card reveal" onclick="openModal('poster1')">
+          <div class="poster-thumb poster-bg-1">
+            <div class="poster-thumb-inner">
+              <span class="poster-num" style="color:var(--cyan);">01</span>
+              <span class="poster-icon" style="color:var(--cyan);">🗂️</span>
+            </div>
+            <div class="poster-overlay"><i class="fa fa-expand"></i></div>
+          </div>
+          <div class="poster-info">
+            <div class="poster-num-badge">Poster · 01</div>
+            <div class="poster-title">Structured Data Integration with GRM/SQLP</div>
+          </div>
+        </div>
+
+        <div class="card poster-card reveal reveal-delay-1" onclick="openModal('poster2')">
+          <div class="poster-thumb poster-bg-2">
+            <div class="poster-thumb-inner">
+              <span class="poster-num" style="color:var(--lavender);">02</span>
+              <span class="poster-icon" style="color:var(--lavender);">🔗</span>
+            </div>
+            <div class="poster-overlay"><i class="fa fa-expand"></i></div>
+          </div>
+          <div class="poster-info">
+            <div class="poster-num-badge">Poster · 02</div>
+            <div class="poster-title">Reliable Reference Mechanisms for Knowledge Bases</div>
+          </div>
+        </div>
+
+        <div class="card poster-card reveal reveal-delay-2" onclick="openModal('poster3')">
+          <div class="poster-thumb poster-bg-3">
+            <div class="poster-thumb-inner">
+              <span class="poster-num" style="color:var(--mint);">03</span>
+              <span class="poster-icon" style="color:var(--mint);">⚡</span>
+            </div>
+            <div class="poster-overlay"><i class="fa fa-expand"></i></div>
+          </div>
+          <div class="poster-info">
+            <div class="poster-num-badge">Poster · 03</div>
+            <div class="poster-title">Parallel Graph Pattern Matching with Golang</div>
+          </div>
+        </div>
+
+        <div class="card poster-card reveal reveal-delay-3" onclick="openModal('poster4')">
+          <div class="poster-thumb poster-bg-4">
+            <div class="poster-thumb-inner">
+              <span class="poster-num" style="color:var(--gold);">04</span>
+              <span class="poster-icon" style="color:var(--gold);">🧹</span>
+            </div>
+            <div class="poster-overlay"><i class="fa fa-expand"></i></div>
+          </div>
+          <div class="poster-info">
+            <div class="poster-num-badge">Poster · 04</div>
+            <div class="poster-title">Data Cleaning in Ontological Multidimensional Models</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRESENTATIONS ──────────────────────────────────────────────────────── -->
+  <section id="presentations">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Talks & Presentations</div>
+        <h2 class="section-title">Speaking</h2>
+        <p class="section-subtitle">Conference presentations, tutorials, and lectures. Slides available on SlideShare.</p>
+      </div>
+      <div class="talks-grid">
+
+        <div class="card talk-card reveal">
+          <div class="talk-type">Research Talk</div>
+          <div class="talk-title">Structured Data Integration: A Graph-Based Approach with GRM/SQLP</div>
+          <div class="talk-event">Data Systems Group Seminar · University of Waterloo</div>
+          <div class="talk-year">2023–2024</div>
+          <div class="talk-links">
+            <a href="https://www.slideshare.net/enamoni" target="_blank" class="pub-link"><i class="fa-regular fa-file-lines"></i> Slides</a>
+          </div>
+        </div>
+
+        <div class="card talk-card reveal reveal-delay-1">
+          <div class="talk-type">Workshop Presentation</div>
+          <div class="talk-title">Reliable Reference Mechanisms in Description Logic Knowledge Bases</div>
+          <div class="talk-event">International Workshop on Description Logics (DL)</div>
+          <div class="talk-year">2023</div>
+          <div class="talk-links">
+            <a href="https://www.slideshare.net/enamoni" target="_blank" class="pub-link"><i class="fa-regular fa-file-lines"></i> Slides</a>
+          </div>
+        </div>
+
+        <div class="card talk-card reveal reveal-delay-2">
+          <div class="talk-type">Research Presentation</div>
+          <div class="talk-title">Data Cleaning from an Ontological Perspective</div>
+          <div class="talk-event">McMaster University · Data Science Lab Seminar</div>
+          <div class="talk-year">2021</div>
+          <div class="talk-links">
+            <a href="https://www.slideshare.net/enamoni" target="_blank" class="pub-link"><i class="fa-regular fa-file-lines"></i> Slides</a>
+          </div>
+        </div>
+
+        <div class="card talk-card reveal">
+          <div class="talk-type">Tutorial / Lecture</div>
+          <div class="talk-title">Introduction to Machine Learning for Data Science</div>
+          <div class="talk-event">University of Waterloo · Guest Lecture</div>
+          <div class="talk-year">2022–2024</div>
+          <div class="talk-links">
+            <a href="https://www.slideshare.net/enamoni" target="_blank" class="pub-link"><i class="fa-regular fa-file-lines"></i> Slides</a>
+            <a href="https://www.youtube.com/channel/UCqUy_KB93-VzJBUFtKfqqhw" target="_blank" class="pub-link"><i class="fa-brands fa-youtube"></i> Video</a>
+          </div>
+        </div>
+
+        <div class="card talk-card reveal reveal-delay-1">
+          <div class="talk-type">Technical Talk</div>
+          <div class="talk-title">Parallel Graph Pattern Matching: Concurrency in Go</div>
+          <div class="talk-event">Computer Science Research Showcase · UWaterloo</div>
+          <div class="talk-year">2023</div>
+          <div class="talk-links">
+            <a href="https://www.slideshare.net/enamoni" target="_blank" class="pub-link"><i class="fa-regular fa-file-lines"></i> Slides</a>
+          </div>
+        </div>
+
+        <div class="card talk-card reveal reveal-delay-2">
+          <div class="talk-type">Industry Talk</div>
+          <div class="talk-title">From Telecommunications to Data Science: A Practitioner's Journey</div>
+          <div class="talk-event">Career Development Seminar · University of Waterloo</div>
+          <div class="talk-year">2022</div>
+          <div class="talk-links">
+            <a href="https://www.youtube.com/channel/UCqUy_KB93-VzJBUFtKfqqhw" target="_blank" class="pub-link"><i class="fa-brands fa-youtube"></i> Video</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center; margin-top:2.5rem;" class="reveal">
+        <a href="https://www.slideshare.net/enamoni" target="_blank" class="btn btn-outline">
+          <i class="fa-brands fa-slideshare"></i> All Slides on SlideShare
+        </a>
+        <a href="https://www.youtube.com/channel/UCqUy_KB93-VzJBUFtKfqqhw" target="_blank" class="btn btn-outline" style="margin-left:0.75rem;">
+          <i class="fa-brands fa-youtube"></i> YouTube Channel
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TEACHING ────────────────────────────────────────────────────────────── -->
+  <section id="teaching">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Education</div>
+        <h2 class="section-title">Teaching</h2>
+      </div>
+      <div class="teaching-grid">
+        <div>
+          <h3 style="font-family:var(--font-display); font-size:1.15rem; color:var(--text-2); margin-bottom:1.25rem; font-weight:400;">Courses & Roles</h3>
+          <div class="course-list">
+            <div class="course-item reveal">
+              <span class="course-num">CS</span>
+              <div>
+                <div class="course-name">Data Structures and Algorithms</div>
+                <div class="course-role">Teaching Assistant / Instructor · University of Waterloo</div>
+              </div>
+            </div>
+            <div class="course-item reveal reveal-delay-1">
+              <span class="course-num">CS</span>
+              <div>
+                <div class="course-name">Introduction to Database Systems</div>
+                <div class="course-role">Teaching Assistant · University of Waterloo</div>
+              </div>
+            </div>
+            <div class="course-item reveal reveal-delay-2">
+              <span class="course-num">DS</span>
+              <div>
+                <div class="course-name">Data Science and Machine Learning</div>
+                <div class="course-role">Lecturer / Guest Lecturer · University of Waterloo</div>
+              </div>
+            </div>
+            <div class="course-item reveal reveal-delay-3">
+              <span class="course-num">CS</span>
+              <div>
+                <div class="course-name">Knowledge Representation and Reasoning</div>
+                <div class="course-role">Teaching Assistant · University of Waterloo</div>
+              </div>
+            </div>
+            <div class="course-item reveal">
+              <span class="course-num">DS</span>
+              <div>
+                <div class="course-name">Data Quality and Cleaning</div>
+                <div class="course-role">Teaching Assistant · McMaster University</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h3 style="font-family:var(--font-display); font-size:1.15rem; color:var(--text-2); margin-bottom:1.25rem; font-weight:400;">Teaching Philosophy</h3>
+          <div class="teaching-philosophy">
+            <p class="philosophy-text">
+              "I believe that teaching is not just the transfer of knowledge — it is the ignition of curiosity. Every student I mentor represents a unique perspective, and my role is to help them integrate new knowledge with their existing experience to discover their own path."
+            </p>
+            <p style="color:var(--text-2); font-size:0.85rem; line-height:1.7;">
+              With over a decade of industry experience across computing, telecommunications, and business before returning to academia, I bring real-world context to theoretical concepts — helping students see why what they learn matters beyond the classroom.
+            </p>
+          </div>
+
+          <div style="margin-top:1.5rem; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h4 style="font-size:0.88rem; color:var(--text-1); margin-bottom:1rem; font-weight:600;">Mentorship & Outreach</h4>
+            <ul style="display:flex; flex-direction:column; gap:0.6rem;">
+              <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; color:var(--text-2);">
+                <i class="fa fa-check-circle" style="color:var(--cyan); margin-top:0.15rem; flex-shrink:0;"></i>
+                Active mentor for undergraduate and graduate students in data systems research
+              </li>
+              <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; color:var(--text-2);">
+                <i class="fa fa-check-circle" style="color:var(--cyan); margin-top:0.15rem; flex-shrink:0;"></i>
+                Engages in extracurricular community-building through photography and creative outlets
+              </li>
+              <li style="display:flex; gap:0.75rem; align-items:flex-start; font-size:0.85rem; color:var(--text-2);">
+                <i class="fa fa-check-circle" style="color:var(--cyan); margin-top:0.15rem; flex-shrink:0;"></i>
+                Advocates for interdisciplinary approaches that connect industry and academic research
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ─────────────────────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Get In Touch</div>
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Open to research collaborations, speaking invitations, and academic discussions.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fa fa-envelope"></i></div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-val"><a href="mailto:enamul.haque@uwaterloo.ca">enamul.haque@uwaterloo.ca</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fa fa-map-marker-alt"></i></div>
+            <div>
+              <div class="contact-item-label">Office</div>
+              <div class="contact-item-val">DC Building, Data Systems Lab<br>University of Waterloo<br>200 University Ave West, Waterloo, ON N2L 3G1</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fa fa-building-columns"></i></div>
+            <div>
+              <div class="contact-item-label">Affiliation</div>
+              <div class="contact-item-val"><a href="https://uwaterloo.ca/data-systems-group/" target="_blank">Data Systems Group</a><br>David R. Cheriton School of Computer Science</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <h3 style="font-family:var(--font-display); font-size:1.15rem; color:var(--text-2); margin-bottom:1.25rem; font-weight:400;">Online Presence</h3>
+          <div class="social-links-grid">
+            <a href="https://scholar.google.com/citations?hl=en&user=tv9hNgYAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="card social-card">
+              <i class="fa-brands fa-google-scholar" style="color:var(--cyan);"></i>
+              <span>Scholar</span>
+            </a>
+            <a href="https://github.com/ehmoni" target="_blank" class="card social-card">
+              <i class="fa-brands fa-github" style="color:var(--text-1);"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.youtube.com/channel/UCqUy_KB93-VzJBUFtKfqqhw" target="_blank" class="card social-card">
+              <i class="fa-brands fa-youtube" style="color:#ff4444;"></i>
+              <span>YouTube</span>
+            </a>
+            <a href="https://www.slideshare.net/enamoni" target="_blank" class="card social-card">
+              <i class="fa-brands fa-slideshare" style="color:var(--gold);"></i>
+              <span>Slides</span>
+            </a>
+            <a href="https://500px.com/p/enam?view=photos" target="_blank" class="card social-card">
+              <i class="fa fa-camera" style="color:var(--mint);"></i>
+              <span>Photos</span>
+            </a>
+            <a href="mailto:enamul.haque@uwaterloo.ca" class="card social-card">
+              <i class="fa fa-envelope" style="color:var(--lavender);"></i>
+              <span>Email</span>
+            </a>
+          </div>
+
+          <div style="margin-top:1.5rem; padding:1.5rem; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md);">
+            <p style="font-size:0.85rem; color:var(--text-2); line-height:1.7;">
+              I am always happy to discuss research ideas, potential collaborations, or industry partnerships. Whether you are a fellow researcher, a student looking for mentorship, or a recruiter — feel free to reach out.
+            </p>
+            <a href="mailto:enamul.haque@uwaterloo.ca" class="btn btn-primary" style="margin-top:1rem; display:inline-flex;">
+              <i class="fa fa-envelope"></i> Send Email
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Enamul Haque <span>(Moni)</span></div>
+      <div class="footer-text">PhD Candidate · University of Waterloo · Data Systems Group</div>
+      <div class="footer-text">© 2025 Enamul Haque. Built with care for the web.</div>
+    </div>
+  </footer>
+
+</div><!-- end .wrapper -->
+
+<!-- ── POSTER MODALS ────────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal-poster1">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('poster1')"><i class="fa fa-times"></i></button>
+    <div class="modal-badge">Poster · 01 · Data Integration</div>
+    <div class="modal-title">Structured Data Integration with GRM/SQLP</div>
+    <div class="modal-body">
+      <p>This project explores a new approach to structured data integration by extending traditional relational models into a graph-based framework. We introduce GRM/SQLP, a more expressive and flexible query language that separates schema design from reference resolution.</p>
+      <br>
+      <p>The work focuses on improving how heterogeneous data sources are combined, especially when dealing with identity and reference inconsistencies. By leveraging graph semantics, this approach can better represent complex relationships across datasets.</p>
+      <br>
+      <p>Overall, the project aims to make data integration more scalable, intuitive, and robust.</p>
+    </div>
+    <div class="modal-actions">
+      <a href="assets/img/poster1.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> View PDF</a>
+      <button onclick="closeModal('poster1')" class="btn btn-outline">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-poster2">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('poster2')"><i class="fa fa-times"></i></button>
+    <div class="modal-badge">Poster · 02 · Knowledge Representation</div>
+    <div class="modal-title">Reliable Reference Mechanisms for Knowledge Bases</div>
+    <div class="modal-body">
+      <p>This research investigates how to maintain reliable references within description logic (DL) knowledge bases, especially under data updates. We develop algorithms and frameworks that address identity resolution challenges, ensuring consistency when data evolves over time.</p>
+      <br>
+      <p>The work combines theoretical foundations with practical mechanisms to manage references more effectively. A key contribution is improving how knowledge systems adapt to changes without losing correctness.</p>
+      <br>
+      <p>This helps support more dependable reasoning in dynamic data environments.</p>
+    </div>
+    <div class="modal-actions">
+      <a href="assets/img/poster2.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> View PDF</a>
+      <button onclick="closeModal('poster2')" class="btn btn-outline">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-poster3">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('poster3')"><i class="fa fa-times"></i></button>
+    <div class="modal-badge">Poster · 03 · Parallel Computing</div>
+    <div class="modal-title">Parallel Graph Pattern Matching with Golang</div>
+    <div class="modal-body">
+      <p>In this project, I developed a graph pattern matching system using Golang to study the performance benefits of concurrency. The system, <strong>GraphMatch</strong>, implements subgraph matching using parallel goroutines and communication channels.</p>
+      <br>
+      <p>The research evaluates how factors like core count, goroutine scaling, and channel size impact performance in combinatorial problems. Results highlight both the strengths and limitations of parallelism, showing where concurrency improves efficiency and where overhead becomes significant.</p>
+      <br>
+      <p>This work contributes to understanding how concurrent programming can be applied to graph algorithms.</p>
+    </div>
+    <div class="modal-actions">
+      <a href="assets/img/poster3.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> View PDF</a>
+      <button onclick="closeModal('poster3')" class="btn btn-outline">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-poster4">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('poster4')"><i class="fa fa-times"></i></button>
+    <div class="modal-badge">Poster · 04 · Data Quality</div>
+    <div class="modal-title">Data Cleaning in Ontological Multidimensional Models</div>
+    <div class="modal-body">
+      <p>This project focuses on improving data quality in multidimensional ontological systems by identifying and resolving inconsistencies. We propose a framework that uses logical constraints and weighted repairs to determine the most efficient fixes to problematic data.</p>
+      <br>
+      <p>By modeling data quality as a context-dependent problem, we leverage <strong>Answer Set Programming</strong> to compute optimal repairs. The approach considers both data and schema-level inconsistencies, offering a principled way to clean complex datasets.</p>
+      <br>
+      <p>Ultimately, this work aims to make analytical systems more reliable by ensuring their underlying data is consistent.</p>
+    </div>
+    <div class="modal-actions">
+      <a href="assets/img/poster4.pdf" target="_blank" class="btn btn-primary"><i class="fa fa-file-pdf"></i> View PDF</a>
+      <button onclick="closeModal('poster4')" class="btn btn-outline">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ─────────────────────────────────────────────────────────────── -->
+<script>
+/* ─── PARTICLE CANVAS ─────────────────────────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles, animId;
+  const N = 80;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H : H + 10;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = -Math.random() * 0.5 - 0.15;
+      this.r  = Math.random() * 1.5 + 0.3;
+      this.alpha = Math.random() * 0.4 + 0.1;
+      this.hue = Math.random() < 0.6 ? 195 : Math.random() < 0.7 ? 260 : 50;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.y < -10) this.reset(false);
+      if (this.x < 0) this.x = W;
+      if (this.x > W) this.x = 0;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue},100%,70%,${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function drawLines() {
+    const D = 120;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < D) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0,212,255,${(1 - dist / D) * 0.07})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    animId = requestAnimationFrame(animate);
+  }
+
+  resize();
+  particles = Array.from({ length: N }, () => new Particle());
+  animate();
+  window.addEventListener('resize', resize);
+})();
+
+/* ─── NAV TOGGLE ──────────────────────────────────────────────────────────── */
+document.getElementById('nav-toggle').addEventListener('click', function() {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+
+/* ─── THEME TOGGLE ────────────────────────────────────────────────────────── */
+const themeBtn = document.getElementById('theme-toggle');
+themeBtn.addEventListener('click', function() {
+  document.body.classList.toggle('light');
+  const icon = themeBtn.querySelector('i');
+  icon.className = document.body.classList.contains('light') ? 'fa fa-moon' : 'fa fa-sun';
+});
+
+/* ─── SCROLL REVEAL ───────────────────────────────────────────────────────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in-view');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ─── COUNTER ANIMATION ───────────────────────────────────────────────────── */
+function animateCounter(el, target, duration) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { el.textContent = target + '+'; clearInterval(timer); }
+    else el.textContent = Math.floor(start);
+  }, 16);
+}
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = parseInt(e.target.dataset.count, 10);
+      animateCounter(e.target, target, 1200);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+/* ─── PUBLICATION FILTER ──────────────────────────────────────────────────── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const f = this.dataset.filter;
+    document.querySelectorAll('#pub-list .pub-card').forEach(card => {
+      if (f === 'all' || (card.dataset.tags || '').includes(f)) {
+        card.style.display = 'grid';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+/* ─── MODAL ───────────────────────────────────────────────────────────────── */
+function openModal(id) {
+  const m = document.getElementById('modal-' + id);
+  if (m) m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  const m = document.getElementById('modal-' + id);
+  if (m) m.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+});
+
+/* ─── ACTIVE NAV HIGHLIGHT ────────────────────────────────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) cur = s.id;
+  });
+  navAs.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--cyan)' : '';
+  });
+}, { passive: true });
+</script>
+
+</body>
+</html>
